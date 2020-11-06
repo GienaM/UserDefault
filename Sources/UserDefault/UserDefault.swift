@@ -32,7 +32,9 @@ public struct UserDefault<Value> {
         self.key = key
         self.defaultValue = defaultValue
         self.userDefaults = userDefaults
-        self.userDefaults.register(defaults: [key: defaultValue])
+        if let defaultValue = defaultValue as? AnyOptional, !defaultValue.isNil {
+            self.userDefaults.register(defaults: [key: defaultValue])
+        }
     }
 }
 
