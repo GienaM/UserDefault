@@ -32,6 +32,7 @@ public struct UserDefault<Value> {
         self.key = key
         self.defaultValue = defaultValue
         self.userDefaults = userDefaults
+
         if let defaultValue = defaultValue as? AnyOptional, !defaultValue.isNil {
             self.userDefaults.register(defaults: [key: defaultValue])
         }
@@ -44,14 +45,4 @@ public extension UserDefault where Value: ExpressibleByNilLiteral {
     init(key: String) {
         self.init(key, defaultValue: nil, userDefaults: .standard)
     }
-}
-
-// MARK: - AnyOptional
-
-private protocol AnyOptional {
-    var isNil: Bool { get }
-}
-
-extension Optional: AnyOptional {
-    var isNil: Bool { self == nil }
 }
